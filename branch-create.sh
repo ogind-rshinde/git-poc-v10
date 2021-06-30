@@ -1,6 +1,15 @@
 #!/bin/bash
 
-USERNAME="ogind-rshinde"
+USERNAME=$(git config user.userid)
+
+if [[ "$USERNAME" == "" ]]
+then
+    echo "$(tput setaf 1) You don't have set userid"
+    read -p "$(tput setaf 2) Please provide your github username which will be used in the branch name : "  userid
+    git config user.userid "$userid"
+    echo " Your userid set successfully, Please run again branch-create.sh file. "
+    exit;
+fi
 
 branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
 #echo "current branch is : $branch"
@@ -9,7 +18,8 @@ echo "$(tput setaf 2) Which type of branch you want to create?:
 1 - feature branch
 2 - Dev bug branch
 3 - QA bug branch
-4 - hotfixes bug branch"
+4 - hotfixes bug branch
+5 - ESN bug branch"
 
 while :; do
   read -p "Choose the number :: " branchOption
@@ -60,6 +70,12 @@ if test "$branchOption" = 4; then
     git checkout hotfix/next
     git pull origin hotfix/next 
     git checkout -b "hfbg-"$ticket"/"$USERNAME"/"${description,,}
+fi
+
+if test "$branchOption" = 5; then
+   git checkout main
+    git pull origin main
+    git checkout -b "esbg-"$ticket"/"$USERNAME"/"${description,,}
 fi
 
 echo "$(tput setaf 2) ********************** Branch is created successfully ****************************"

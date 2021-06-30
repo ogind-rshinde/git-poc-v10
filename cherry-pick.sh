@@ -8,7 +8,7 @@ if [[ "$branchType" == "qabg" ]]
 then
     parentBranch='release/next'
 else 
-    echo "$(tput setaf 1) ***** git cherry-pick is not applicable for this branch. **** "
+    echo "$(tput setaf 1) ********** git cherry-pick is not applicable for this branch. ********* "
     exit;
 fi
 
@@ -31,15 +31,15 @@ do
     then
         git cherry-pick $element
         isCherryPick=1
-        echo "$(tput setaf 2) **************** Cherry-pick is initiated for $element *************************"
+        echo "$(tput setaf 2) ******************* Cherry-pick is initiated for $element ****************************"
     else
-        echo "$(tput setaf 1) ************************************************
-            ********** Commit Id is not valid, Please contact with administrator!!   ****************************"
+        echo "$(tput setaf 1) *******************
+             Commit Id is not valid, Please contact with administrator!!   ****************************"
     fi
 done
 
 if [[ "$isCherryPick" == 1 ]]
 then
     git push origin $parentBranch
-    echo "$(tput setaf 2) **************** Cherry-pick is initiated successfully *************************"
+    echo "$(tput setaf 2) ******************* Cherry-pick is initiated successfully ****************************"
 fi

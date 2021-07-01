@@ -1,7 +1,6 @@
 #!/bin/bash
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-#echo "Your current branch is $BRANCH"
 
 branchType=${BRANCH:0:4}
 if [[ "$branchType" == "qabg" ]]
@@ -11,7 +10,6 @@ else
     echo "$(tput setaf 1) ********** git cherry-pick is not applicable for this branch. ********* "
     exit;
 fi
-
 
 if [[ "$BRANCH" != "$parentBranch" ]]
 then
@@ -34,7 +32,7 @@ do
         echo "$(tput setaf 2) ******************* Cherry-pick is initiated for $element ****************************"
     else
         echo "$(tput setaf 1) *******************
-             Commit Id is not valid, Please contact with administrator!!   ****************************"
+             Commit ID is not valid, Please contact with administrator!   ****************************"
     fi
 done
 

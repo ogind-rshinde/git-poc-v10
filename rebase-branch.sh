@@ -1,7 +1,6 @@
 #!/bin/bash
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-#echo "Your current branch is $BRANCH"
 
 branchType=${BRANCH:0:4}
 if [ "$branchType" == "feat" ] || [ "$branchType" == "dvbg" ] || [ "$branchType" == "esbg" ]
@@ -43,5 +42,5 @@ then
     echo "$(tput setaf 2) **************** Rebase is initiated *************************"
 else
     echo "$(tput setaf 2) ************************************************
-        ********** Your branch does not require rebase   ****************************"
+        ********** Your branch does not require rebase.   ****************************"
 fi

@@ -1,15 +1,9 @@
 #!/bin/bash
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-#echo "Your current branch is $BRANCH"
 
 branchType=${BRANCH:0:4}
-if [[ "$branchType" == "feat" ]]
-then
-    parentBranch='main'
-fi
-
-if [[ "$branchType" == "dvbg" ]]
+if [ "$branchType" == "feat" ] || [ "$branchType" == "dvbg" ] || [ "$branchType" == "esbg" ]
 then
     parentBranch='main'
 fi
@@ -33,6 +27,9 @@ then
     git pull origin $BRANCH
 fi
 
+echo $parentBranch
+exit;
+
 parentBranchCommitId=$(git log origin/$parentBranch --pretty=format:"%h" -1)
 
 isExist=$(git branch --contains $parentBranchCommitId | grep $BRANCH)
@@ -45,14 +42,5 @@ then
     echo "$(tput setaf 2) **************** Rebase is initiated *************************"
 else
     echo "$(tput setaf 2) ************************************************
-        ********** Your branch does not require rebase   ****************************"
+        ********** Your branch does not require rebase.   ****************************"
 fi
-
-
-# PARENT_COMMIT_ID=$(git reflog --pretty=format:"%h" $BRANCH | tail -n 1)
-# echo $PARENT_COMMIT_ID
-# echo "**********************************"
-# for j in $(git reflog origin/main --pretty=format:'%h')
-# do
-#   echo "$j"
-# done
